@@ -1,6 +1,6 @@
 # note-mark
 
-An Electron application with React and TypeScript
+An Electron desktop application for advanced note-taking based on React and TypeScript with Markdown support
 
 ## Recommended IDE Setup
 
