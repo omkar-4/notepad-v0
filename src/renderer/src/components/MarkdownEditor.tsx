@@ -1,16 +1,20 @@
 import {
+  BoldItalicUnderlineToggles,
   headingsPlugin,
   listsPlugin,
   markdownShortcutPlugin,
   MDXEditor,
   MDXEditorMethods,
   quotePlugin,
-  thematicBreakPlugin
+  thematicBreakPlugin,
+  toolbarPlugin,
+  UndoRedo
 } from '@mdxeditor/editor'
 import React from 'react'
 
 import '@mdxeditor/editor/style.css'
 import '@renderer/assets/custom-theme.css'
+import { TbMenu2 } from 'react-icons/tb'
 
 const calculateLineNumbers = (text: string) => {
   return text.split('\n').filter((line) => line.trim() !== '').length || 1
@@ -71,13 +75,17 @@ export const MarkdownEditor = () => {
 
   return (
     <>
-      <header className="flex flex-row items-center justify-start gap-4 flex-wrap">
+      <button className="rounded-lg text-[#fff] text-lg font-black absolute p-0.5 z-50 w-fit h-fit inline sm:hidden mb-2 -translate-x-1/2 -translate-y-1/2">
+        <TbMenu2 />
+      </button>
+      <header className="hidden sm:flex flex-row items-center justify-start gap-4 flex-wrap mb-2">
         <button
           className="border hover:border-transparent hover:bg-[#F57F00] active:bg-[#9c5101] rounded-full px-3 py-0.5"
           onClick={() => ref.current?.setMarkdown(md_template)}
         >
           Start with Template
         </button>
+
         <button
           className="border hover:border-transparent hover:bg-[#F57F00] active:bg-[#9c5101] rounded-full px-3 py-0.5"
           onClick={() => {
@@ -87,7 +95,15 @@ export const MarkdownEditor = () => {
         >
           Extract to Console
         </button>
-        <span>{lineNumbers}</span>
+
+        <button
+          className="border hover:border-transparent hover:bg-[#F57F00] active:bg-[#9c5101] rounded-full px-3 py-0.5"
+          onClick={() => ref.current?.setMarkdown('')}
+        >
+          Clear
+        </button>
+
+        {/* <span>{lineNumbers}</span> */}
         {/* <p>Current Line: {lineNumber}</p> */}
       </header>
 
@@ -109,7 +125,7 @@ export const MarkdownEditor = () => {
           console.log(window.getSelection()?.focusOffset)
         }}
         ref={ref}
-        className="h-full w-full dark-theme dark-editor scrollbar-custom overflow-y-auto text-wrap tracking-wide min-h-"
+        className="h-full w-full dark-theme dark-editor scrollbar-custom overflow-y-auto text-wrap tracking-wide"
         markdown={''}
         contentEditableClassName="outline-none min-h-svh max-w-none text-lg px-8 py-5 caret-zinc-100 prose prose-invert prose-p:my-3 prose-headings:tracking-wider prose-p:leading-normal prose-headings:my-4 prose-bockquote:my-4 prose-ul:my-2 prose-li:my-0 prose-code:px-1 prose-code:text-green-500 prose-code:before:content-[''] prose-code:after:content-['']"
         plugins={[
@@ -117,7 +133,19 @@ export const MarkdownEditor = () => {
           listsPlugin(),
           quotePlugin(),
           markdownShortcutPlugin(),
-          thematicBreakPlugin()
+          thematicBreakPlugin(),
+
+          toolbarPlugin({
+            toolbarContents: () => (
+              <>
+                <div className="hidden sm:flex flex-row">
+                  {''}
+                  <UndoRedo />
+                  <BoldItalicUnderlineToggles />
+                </div>
+              </>
+            )
+          })
         ]}
       />
     </>

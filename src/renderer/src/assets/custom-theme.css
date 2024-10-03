@@ -86,3 +86,8 @@
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   background: #733EDC;
 }
+
+.mdxeditor-toolbar{
+  @apply hidden;
+  @apply sm:block
+}
