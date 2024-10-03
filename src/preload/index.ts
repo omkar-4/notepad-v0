@@ -1,12 +1,13 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 if (!process.contextIsolated) {
-  throw new Error('contextIsolation must be enavled in the BrowserWindow')
+  throw new Error('contextIsolation must be enabled in the BrowserWindow')
 }
 
 try {
   contextBridge.exposeInMainWorld('context', {
-    // TODO: add your preload functions here
+    locale: navigator.language
+    // navigator is an API returning info about user-agent
   })
 } catch (error) {
   console.error(error)

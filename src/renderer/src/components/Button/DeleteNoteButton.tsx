@@ -1,10 +1,10 @@
 import { ActionButton, ActionButtonProps } from '@/components'
-import { LuFileSignature } from 'react-icons/lu'
+import { FaRegTrashCan } from 'react-icons/fa6'
 
 export const DeleteNoteButton = ({ ...props }: ActionButtonProps) => {
   return (
     <ActionButton {...props}>
-      <LuFileSignature className="w-4 h-4 text-[#f2f2f2]" />
+      <FaRegTrashCan className="w-4 h-4 text-[#f2f2f2]" />
     </ActionButton>
   )
 }
